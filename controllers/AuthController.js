@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const dotenv = require('dotenv');
+
 dotenv.config();
 
 const authController = {

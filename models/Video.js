@@ -1,14 +1,31 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const videoSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-        minLength:6,
-        maxLength: 40,
-        unique: true
+const videoSchema = new mongoose.Schema(
+    {
+        id: String,
+        snippet: {
+            publishedAt: Date,
+            channelId: String,
+            title: String,
+            description: String,
+            thumbnails: {
+                high: {
+                    url: String,
+                    width: Number,
+                    height: Number,
+                },
+            },
+            channelTitle: String,
+            categoryId: Number,
+        },
+        statistics: {
+            viewCount: Number,
+            likeCount: Number,
+            favoriteCount: Number,
+            commentCount: Number,
+        },
     },
-    //TODO: 
-},  {timestamps: true})
+    { timestamps: true }
+);
 
-module.exports =mongoose.model('User', videoSchema);
+module.exports = mongoose.model("Video", videoSchema);
