@@ -5,15 +5,11 @@ const userSchema = new mongoose.Schema(
         name: {
             type: String,
             required: true,
-            minLength: 6,
-            maxLength: 40,
             unique: true,
         },
         email: {
             type: String,
             required: true,
-            minLength: 6,
-            maxLength: 50,
             unique: true,
         },
         imageUrl: {
@@ -25,6 +21,7 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
             minLength: 6,
+            unique: true,
         },
     },
     { timestamps: true }

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const User = require("./User");
 
 const videoSchema = new mongoose.Schema(
     {
@@ -23,6 +24,10 @@ const videoSchema = new mongoose.Schema(
             likeCount: Number,
             favoriteCount: Number,
             commentCount: Number,
+        },
+        createdBy: {
+            userId: mongoose.SchemaTypes.ObjectId,
+            username: String,
         },
     },
     { timestamps: true }
