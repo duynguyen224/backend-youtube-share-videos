@@ -27,6 +27,7 @@ const videoSchema = new mongoose.Schema(
         },
         createdBy: {
             userId: mongoose.SchemaTypes.ObjectId,
+            imageUrl: String,
             username: String,
         },
     },

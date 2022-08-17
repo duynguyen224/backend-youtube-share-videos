@@ -34,6 +34,7 @@ const videoController = {
                 },
                 createdBy: {
                     userId : user._id,
+                    imageUrl: user.imageUrl,
                     username: user.name,
                 }
             });
@@ -56,6 +57,15 @@ const videoController = {
     findByName: async (req, res) => {
         try {
             const result = await Video.find({'snippet.title' : { $regex : new RegExp(req.query.search, "i") }});
+            res.status(200).json(result);
+        } catch (error) {
+            console.log(error);
+            res.status(500).json(error);
+        }
+    },
+    filterByCategory: async (req, res) => {
+        try {
+            const result = await Video.find({'snippet.categoryId' : req.query.categoryId});
             res.status(200).json(result);
         } catch (error) {
             console.log(error);

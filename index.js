@@ -5,7 +5,9 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const authRoute = require("./routes/auth");
 const videoRoute = require("./routes/video");
+const categoryRoute = require("./routes/category")
 const axios = require("axios");
+const { seedCategory } = require("./seedCategory")
 
 dotenv.config();
 const app = express();
@@ -16,6 +18,9 @@ mongoose.connect(process.env.DB_URL, (err) => {
     else console.log("DB Connected!");
 });
 
+// seed category to db
+seedCategory();
+
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
@@ -23,6 +28,7 @@ app.use(express.json());
 // Routes
 app.use("/v1/auth", authRoute);
 app.use("/v1/videos", videoRoute);
+app.use("/v1/categories", categoryRoute);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
