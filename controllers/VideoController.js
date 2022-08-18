@@ -4,6 +4,15 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const videoController = {
+    countVideos: async (req, res) => {
+        try {
+            const totalVideos = await Video.count();
+            res.status(200).json(totalVideos);
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+        }
+    },
     createVideo: async (req, res) => {
         try {
             const video = req.body.video;
@@ -54,6 +63,15 @@ const videoController = {
             res.status(500).json(err);
         }
     },
+    fetchMoreVideos: async (req, res) => {
+        try {
+            const videos = await Video.find({}).skip(req.query.currentCount).limit(8);
+            res.status(200).json(videos);
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+        }
+    },
     findByName: async (req, res) => {
         try {
             const result = await Video.find({'snippet.title' : { $regex : new RegExp(req.query.search, "i") }});
@@ -63,13 +81,42 @@ const videoController = {
             res.status(500).json(error);
         }
     },
-    filterByCategory: async (req, res) => {
+    fetchMoreWithSearch: async (req, res) => {
         try {
-            const result = await Video.find({'snippet.categoryId' : req.query.categoryId});
+            console.log(req.query.search);
+            console.log(req.query.currentCount);
+            const result = await Video.find({'snippet.title' : { $regex : new RegExp(req.query.search, "i") }}).skip(req.query.currentCount).limit(8);
             res.status(200).json(result);
         } catch (error) {
             console.log(error);
             res.status(500).json(error);
+        }
+    },
+    countVideosWithSearch: async (req, res) => {
+        try {
+            const totalVideos = await Video.count({'snippet.title' : { $regex : new RegExp(req.query.search, "i") }});
+            res.status(200).json(totalVideos);
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+        }
+    },
+    filterByCategory: async (req, res) => {
+        try {
+            const result = await Video.find({'snippet.categoryId' : req.query.categoryId}).skip(req.query.currentCount).limit(8);
+            res.status(200).json(result);
+        } catch (error) {
+            console.log(error);
+            res.status(500).json(error);
+        }
+    },
+    countVideoByCategory: async (req, res) => {
+        try {
+            const totalVideos = await Video.count({'snippet.categoryId' : req.query.categoryId});
+            res.status(200).json(totalVideos);
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
         }
     }
 };
