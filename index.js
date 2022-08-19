@@ -7,7 +7,9 @@ const authRoute = require("./routes/auth");
 const videoRoute = require("./routes/video");
 const categoryRoute = require("./routes/category")
 const axios = require("axios");
-const { seedCategory } = require("./seedCategory")
+const { seedCategory } = require("./seedCategory");
+const { seedUser } = require("./seedUser");
+
 
 dotenv.config();
 const app = express();
@@ -18,8 +20,10 @@ mongoose.connect(process.env.DB_URL, (err) => {
     else console.log("DB Connected!");
 });
 
-// seed category to db
+// seed category
 seedCategory();
+// seed user
+seedUser();
 
 app.use(cors());
 app.use(cookieParser());

@@ -83,8 +83,6 @@ const videoController = {
     },
     fetchMoreWithSearch: async (req, res) => {
         try {
-            console.log(req.query.search);
-            console.log(req.query.currentCount);
             const result = await Video.find({'snippet.title' : { $regex : new RegExp(req.query.search, "i") }}).skip(req.query.currentCount).limit(8);
             res.status(200).json(result);
         } catch (error) {
