@@ -16,7 +16,6 @@ const authController = {
                 email: req.body.email,
                 password: hashed,
             });
-
             const user = await newUser.save();
             res.status(200).json(user);
         } catch (err) {
@@ -77,6 +76,7 @@ const authController = {
             } else {
                 // Login with google
                 const user = await User.findOne({ email: req.body.email });
+                console.log(req.body);
                 if (!user) {
                     const newUser = new User({
                         name: req.body.name,
@@ -84,9 +84,12 @@ const authController = {
                         imageUrl: req.body.imageUrl,
                         googleId: req.body.googleId,
                     });
+                    console.log(newUser);
+                    // error here
                     await newUser.save();
                     res.status(200).json(newUser);
                 } else {
+                    console.log("Login successfully with google");
                     res.status(200).json(user);
                 }
             }
