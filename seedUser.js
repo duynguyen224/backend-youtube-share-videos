@@ -17,7 +17,7 @@ const users = [
         updatedAt: "2022-08-19T06:11:09.330Z",
         imageUrl: "https://play-lh.googleusercontent.com/V_P-I-UENK93ahkQgOWel8X8yFxjhOOfMAZjxXrqp311Gm_RBtlDXHLQhwFZN8n4aIQ=w240-h480-rw",
         refreshToken: "gDPtNg87869BLdTvfSUU3mBkrwKonMEA",
-    },
+    }
 ];
 
 module.exports = { seedUser };

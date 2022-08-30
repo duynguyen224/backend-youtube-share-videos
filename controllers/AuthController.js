@@ -76,16 +76,14 @@ const authController = {
             } else {
                 // Login with google
                 const user = await User.findOne({ email: req.body.email });
-                console.log(req.body);
-                if (!user) {
+                if (!user || user === null) {
+                    console.log(req.body);
                     const newUser = new User({
                         name: req.body.name,
                         email: req.body.email,
                         imageUrl: req.body.imageUrl,
                         googleId: req.body.googleId,
                     });
-                    console.log(newUser);
-                    // error here
                     await newUser.save();
                     res.status(200).json(newUser);
                 } else {
